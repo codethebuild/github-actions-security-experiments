@@ -1,0 +1,42 @@
+name: Build and Validate PR
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # 2. Setup Node.js and run build with npm
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: Build project
+      run: npm run build
+    
+    # 3. Add comment to PR
+    - name: Comment on PR
+      run: |
+        COMMENT="Hey @${{ github.event.pull_request.user.login }} thanks for submitting your PR \"${{ github.event.pull_request.title }}\"! 🎉
+
+        We have validated the PR successfully ✅
+
+        Now waiting for a manual review... 👀"
+
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments \
+          -d "{\"body\":\"${COMMENT}\"}"
