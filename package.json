@@ -1,0 +1,20 @@
+{
+  "name": "github-actions-security",
+  "version": "1.0.0",
+  "description": "This repository contains various experiments and research related to the security of GitHub Actions. It includes proof-of-concept exploits, security analyses, and mitigation strategies for common vulnerabilities found in GitHub Actions workflows.",
+  "homepage": "https://github.com/codethebuild/github-actions-security-experiments#readme",
+  "bugs": {
+    "url": "https://github.com/codethebuild/github-actions-security-experiments/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codethebuild/github-actions-security-experiments.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"no test specified\""
+  }
+}
